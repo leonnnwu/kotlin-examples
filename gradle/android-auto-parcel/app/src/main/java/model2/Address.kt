@@ -1,27 +1,14 @@
 package model2
 
-import com.google.auto.value.AutoValue
+import paperparcel.PaperParcel
+import paperparcel.PaperParcelable
 
-import android.os.Parcelable
-
-@AutoValue
-abstract class Address : Parcelable {
-    abstract fun coordinates(): DoubleArray
-    abstract fun cityName(): String
-
-    @AutoValue.Builder
-    interface Builder {
-        fun coordinates(x: DoubleArray): Builder
-        fun cityName(x: String): Builder
-        fun build(): Address
-    }
-
+@PaperParcel
+data class Address(
+        val coordinates: DoubleArray,
+        val cityName: String
+): PaperParcelable {
     companion object {
-        fun create(coordinates: DoubleArray, cityName: String): Address {
-            return builder().coordinates(coordinates).cityName(cityName).build()
-        }
-
-        fun builder(): Builder = `$AutoValue_Address`.Builder()
+        @JvmField val CREATOR = PaperParcelAddress.CREATOR
     }
-
 }
